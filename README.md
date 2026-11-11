@@ -1,5 +1,5 @@
 # Geant4-Based Scintillator Detector Simulation
-# ScintillatorSimulator: Operating Guide
+ Operating Guide
 
 This README explains how to build, configure, run, analyze, and visualize the simulator. For the project architecture and a detailed walkthrough of `Scintillator.cc`, see [PROJECT_REPORT.md](PROJECT_REPORT.md).
 
