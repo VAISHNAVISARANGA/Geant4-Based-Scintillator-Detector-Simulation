@@ -1,0 +1,69 @@
+# vis.mac - full-chain visualisation: gamma -> interaction -> energy deposit / escape
+#           -> scintillation photons -> optical transport -> SiPM
+#
+# Run with ONE event (a 662 keV absorption makes ~30,000 optical photons):
+#   ./build/CsPbBr3Sim config.yaml --vis --events 1
+# For a readable picture, use a COPY of config.yaml with a low light yield
+# (e.g. scintillation.light_yield = 1000 photons/MeV -> ~660 photons) and run it the same way.
+# Change --seed until you see an event you like (full absorption, Compton + escape, ...).
+#
+# Colours:
+#   green   gamma (beam, scattered gamma, escaping gamma)
+#   red     e-    (photo/Compton electrons = where energy is deposited)
+#   magenta e+
+#   yellow  optical photons (scintillation light, semi-transparent)
+#   white wireframe = CsPbBr3 crystal 10x10x10 mm, orange = coupling layer, blue = SiPM
+#
+# Needs a Geant4 build with a viewer (OpenGL/Qt). Headless check: replace
+# "/vis/open OGL" by "/vis/open VRML2FILE" or "/vis/open DAWNFILE".
+
+/vis/open OGL 900x700-0+0
+/vis/viewer/set/autoRefresh false
+/vis/verbose warnings
+
+# ---- geometry: crystal as wireframe so tracks inside it stay visible ----
+/vis/geometry/set/forceWireframe Crystal 0 true
+/vis/geometry/set/colour Crystal 0 1 1 1 1
+/vis/geometry/set/colour Coupling 0 1 0.55 0.1 0.6
+/vis/geometry/set/colour Sensor 0 0.2 0.5 1 0.9
+/vis/drawVolume
+/vis/viewer/set/style surface
+/vis/viewer/set/auxiliaryEdge true
+
+# ---- view: side-on, beam travels left -> right, source (z=-30) to SiPM (z~+5.5) all in frame ----
+# (invisible volumes do not count for auto-framing, so tell the scene how big the region of interest is)
+/vis/scene/add/extent -12 12 -12 12 -33 9 mm
+/vis/viewer/set/viewpointVector -1 0.3 0.15
+/vis/viewer/set/lightsVector -1 0 1
+/vis/viewer/set/targetPoint 0 0 -12 mm
+/vis/viewer/zoomTo 1.3
+# if the framing is still off, type in the session:  /vis/viewer/zoomTo 1  (smaller picture)  or  2  (bigger)
+
+# ---- trajectories: gamma, electrons, optical photons ----
+/vis/scene/add/trajectories smooth
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts false
+# (set the line above to true to mark every interaction/reflection point; cluttered with many photons)
+/vis/modeling/trajectories/drawByParticleID-0/set gamma green
+/vis/modeling/trajectories/drawByParticleID-0/set e- red
+/vis/modeling/trajectories/drawByParticleID-0/set e+ magenta
+/vis/modeling/trajectories/drawByParticleID-0/setRGBA opticalphoton 1 0.9 0 0.5
+/vis/scene/endOfEventAction accumulate 5
+
+# ---- stage switch (inactive now = everything shown). In the session type one of:
+#   /control/execute stage_gamma.mac   gamma + electrons only  (interaction, deposit, escape)
+#   /control/execute stage_light.mac   optical photons only    (light travelling to the SiPM)
+#   /control/execute stage_all.mac     everything
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add opticalphoton
+/vis/filtering/trajectories/particleFilter-0/active false
+
+# ---- labels, scale, axes ----
+/vis/scene/add/scale 10 mm
+/vis/scene/add/axes 0 0 0 10 mm
+/vis/scene/add/text 0 0 -30 mm 12 0 10 gamma source
+/vis/scene/add/text 0 0 0 mm 12 20 0 CsPbBr3
+/vis/scene/add/text 0 0 5.4 mm 12 20 10 SiPM
+
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings

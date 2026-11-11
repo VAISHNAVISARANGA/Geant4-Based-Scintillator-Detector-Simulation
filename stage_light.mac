@@ -1,0 +1,4 @@
+# optical photons only: hide gamma and electrons
+/vis/filtering/trajectories/particleFilter-0/invert false
+/vis/filtering/trajectories/particleFilter-0/active true
+/vis/viewer/rebuild

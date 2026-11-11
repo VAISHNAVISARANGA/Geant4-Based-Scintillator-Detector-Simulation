@@ -1,0 +1,205 @@
+# Basic integrated LaBr3:Ce scintillator simulation
+# Benchmark temperature: 293 K (Room Temperature)
+# Values marked "estimated" are modelling inputs, not measured detector specifications.
+
+config_version: 1
+
+simulation:
+  mode: auto
+  physics_list: FTFP_BERT_EMZ
+  production_cut: {value: 0.01, unit: mm}
+  events: 10000
+  seed: 12345
+
+output:
+  directory: results_LaBr3_Ce_293K
+  photon_log: none
+  max_logged_photons: 2000000
+
+visualization:
+  macro: vis.mac
+
+material:
+  name: LaBr3_Ce
+  physical_state:
+    value: solid
+    status: literature
+    source: "LaBr3:Ce single crystal"
+  composition:
+    status: calculated
+    source: "Nominal 5% Ce dopant substitution on La site"
+    elements:
+      - {symbol: La, atoms: 0.95}
+      - {symbol: Ce, atoms: 0.05}
+      - {symbol: Br, atoms: 3.0}
+  density:
+    value: 5.08
+    unit: g/cm3
+    status: literature
+    source: "Standard commercial density for LaBr3:Ce"
+  temperature:
+    value: 293.0
+    unit: K
+    status: literature
+    source: "Standard room temperature benchmark"
+
+crystal:
+  shape: box
+  dimensions: {x: 10.0, y: 10.0, z: 10.0, unit: mm}
+
+# Crystal-to-surrounding optical boundary and reflector
+surface:
+  model: unified
+  finish: polished
+  sigma_alpha: {value: null, unit: deg, status: unknown, source: ""}
+  roughness_rms: {value: null, unit: um, status: unknown, source: ""}
+  unified_constants: {}
+  reflector:
+    type: diffuse
+    reflectivity:
+      value: 0.95
+      unit: ""
+      status: estimated
+      source: "Simplified wavelength-independent PTFE-like reflector"
+
+surrounding:
+  nist_material: G4_AIR
+  refractive_index:
+    value: 1.0003
+    unit: ""
+    status: literature
+    source: "Approximate visible-light refractive index of air"
+
+source:
+  particle: gamma
+  type: pencil_beam
+  energy: {value: 662, unit: keV}
+  position: {x: 0, y: 0, z: -30, unit: mm}
+  direction: {x: 0, y: 0, z: 1}
+  # Kept for compatibility with the existing configuration.
+  # Whether this is applied depends on the C++ source implementation.
+  cone_half_angle: {value: 10, unit: deg}
+
+# Scintillation photon production and emission timing
+scintillation:
+  light_yield:
+    value: 63000
+    unit: photons/MeV
+    status: literature
+    source: "Standard room temperature light yield for commercial LaBr3:Ce (5% Ce)"
+    conditions: "Validated under 662 keV gamma-ray excitation (Cs-137 emission)"
+  resolution_scale:
+    value: 1.0
+    unit: ""
+    status: estimated
+    source: "Poisson photon statistics; excess fluctuations not modelled"
+  emission:
+    peak_wavelength:
+      value: 380
+      unit: nm
+      status: literature
+      source: "Characteristic Ce3+ emission peak in LaBr3 host lattice"
+    fwhm:
+      value: 45
+      unit: nm
+      status: estimated
+      source: "Typical standard room temperature emission FWHM"
+    spectrum_mode: gaussian
+    spectrum_table:
+      status: unknown
+      source: ""
+      x_unit: nm
+      intensity_basis: per_wavelength
+      points: []
+  rise_time:
+    value: 0.0
+    unit: ns
+    status: estimated
+    source: "Instantaneous rise-time approximation"
+  decay_components:
+    - fraction: {value: 1.0, unit: "", status: estimated, source: "Primary fast emission channel dominance"}
+      decay_time:
+        value: 16.0
+        unit: ns
+        status: literature
+        source: "Characteristic primary fast decay lifetime at room temperature"
+
+# Optical photon transport through the crystal
+optical:
+  refractive_index:
+    value: 1.9
+    unit: ""
+    status: literature
+    source: "Refractive index evaluated near the 380 nm emission peak"
+  absorption_length:
+    value: 500.0
+    unit: mm
+    status: estimated
+    source: "Highly transparent commercial bulk growth approximation"
+  # Optional scattering and wavelength-shifting processes are disabled.
+  rayleigh:
+    enabled: false
+    scattering_length: {value: null, unit: mm, status: unknown, source: ""}
+  mie:
+    enabled: false
+    scattering_length: {value: null, unit: mm, status: unknown, source: ""}
+    forward_anisotropy: {value: null, unit: "", status: unknown, source: ""}
+    backward_anisotropy: {value: null, unit: "", status: unknown, source: ""}
+    forward_ratio: {value: null, unit: "", status: unknown, source: ""}
+  wls:
+    enabled: false
+    absorption_length: {value: null, unit: mm, status: unknown, source: ""}
+    mean_photons: {value: null, unit: "", status: unknown, source: ""}
+    time_constant: {value: null, unit: ns, status: unknown, source: ""}
+    emission_table: {status: unknown, source: "", x_unit: nm, intensity_basis: per_wavelength, points: []}
+
+# One basic detector configuration: SiPM.
+# PMT response is not enabled in this simplified benchmark.
+sensor:
+  type: SiPM
+  face: "+z"
+  active_area: {width: 6.0, height: 6.0, offset_u: 0.0, offset_v: 0.0, unit: mm}
+  model_thickness: {value: 0.5, unit: mm}
+
+  # Optical window and coupling layer between crystal and sensor
+  window:
+    nist_material: G4_SILICON_DIOXIDE
+    refractive_index:
+      value: 1.5
+      unit: ""
+      status: estimated
+      source: "Simplified detector-window refractive index"
+  coupling:
+    type: layer
+    nist_material: G4_PLEXIGLASS
+    thickness: {value: 0.1, unit: mm, status: estimated, source: "Simplified coupling-layer thickness"}
+    refractive_index:
+      value: 1.5
+      unit: ""
+      status: estimated
+      source: "Simplified optical-coupling refractive index"
+
+  # Photon detection and charge response
+  pde:
+    value: 0.40
+    unit: ""
+    status: estimated
+    source: "Constant illustrative SiPM photon-detection efficiency; not a datasheet curve"
+  sipm:
+    model_saturation: true
+    model_recovery: true
+    microcell_count: {value: 14400, unit: "", status: estimated, source: "Illustrative 6 x 6 mm2 SiPM with 50 um pitch"}
+    gain: {value: 1.0e6, unit: "", status: estimated, source: "Illustrative electrons per fired microcell"}
+    recovery_time: {value: 20.0, unit: ns, status: estimated, source: "Simplified microcell recovery time"}
+
+  # Basic timing and electronics parameters.
+  # These are configuration additions; C++ must explicitly read and apply them.
+  timing:
+    transit_time: {value: 0.0, unit: ns, status: estimated, source: "Zero mean transit-time offset for the basic model"}
+    time_jitter: {value: 0.0, unit: ns, status: estimated, source: "Timing jitter disabled in the basic model"}
+  electronics:
+    noise_rms: {value: 0.0, unit: electrons, status: estimated, source: "Electronic noise disabled until a detector-specific value is available"}
+
+  pmt:
+    enabled: false
+    gain: {value: null, unit: "", status: unknown, source: ""}

@@ -1,0 +1,746 @@
+{
+ "mode": "full",
+ "metrics": {
+  "s1": [
+   {
+    "label": "Gamma events simulated",
+    "value": 10000,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Events whose primary entered the crystal",
+    "value": 10000,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Events with a gamma interaction in the crystal",
+    "value": 3416,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "any process other than transport (photoelectric, Compton, Rayleigh, pair)",
+    "err": null
+   },
+   {
+    "label": "Interaction fraction (per emitted gamma)",
+    "value": 0.3416,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": 0.004742461807964299
+   },
+   {
+    "label": "Interaction fraction (per gamma entering the crystal)",
+    "value": 0.3416,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 0.004742461807964299
+   },
+   {
+    "label": "Fraction of events depositing energy",
+    "value": 0.3311,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "Rayleigh-only events interact without depositing energy",
+    "err": 0.004706089565658521
+   },
+   {
+    "label": "Mean deposited energy, all events",
+    "value": 139.59239229951461,
+    "unit": "keV",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 2.4123865165905274
+   },
+   {
+    "label": "Mean deposited energy, events depositing energy",
+    "value": 421.6019096934902,
+    "unit": "keV",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Full-energy deposition fraction (E_dep \u2265 E_\u03b3 \u2212 1 keV, per emitted gamma)",
+    "value": 0.1425,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "Truth quantity from the simulation (not a detector observable)",
+    "err": 0.0034956222622016813
+   },
+   {
+    "label": "Partial-energy deposition fraction (0 < E_dep < E_\u03b3 \u2212 tol, per emitted gamma)",
+    "value": 0.1886,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": 0.003911905418079532
+   },
+   {
+    "label": "Full-energy fraction among events depositing energy",
+    "value": 0.4303835699184536,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 0.00860477473218763
+   },
+   {
+    "label": "Mean energy escaping the crystal, events that deposited energy",
+    "value": 240.39809031003023,
+    "unit": "keV",
+    "kind": "SIMULATED",
+    "note": "net kinetic energy of particles leaving the crystal (tracked, not inferred); gammas that cross without interacting are excluded",
+    "err": null
+   },
+   {
+    "label": "Fraction of depositing events with escaping energy > tol (partial absorption)",
+    "value": 0.5696164300815464,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Max |energy closure| (entering \u2212 deposited \u2212 escaped)",
+    "value": 5.68434189e-13,
+    "unit": "keV",
+    "kind": "SIMULATED",
+    "note": "bookkeeping self-check; should be ~0 (positron escape before annihilation would show here)",
+    "err": null
+   },
+   {
+    "label": "First interaction process counts",
+    "value": "Rayl: 124, compt: 2568, phot: 724",
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "phot = photoelectric, compt = Compton, Rayl = Rayleigh, conv = pair production",
+    "err": null
+   },
+   {
+    "label": "Total attenuation length at E_\u03b3",
+    "value": 23.82657639,
+    "unit": "mm",
+    "kind": "CALCULATED",
+    "note": "Geant4 cross-section tables (G4EmCalculator)",
+    "err": null
+   },
+   {
+    "label": "Linear attenuation coefficient, photoelectric",
+    "value": 0.009286381211,
+    "unit": "1/mm",
+    "kind": "CALCULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Linear attenuation coefficient, Compton",
+    "value": 0.03092248847,
+    "unit": "1/mm",
+    "kind": "CALCULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Linear attenuation coefficient, Rayleigh",
+    "value": 0.001761071095,
+    "unit": "1/mm",
+    "kind": "CALCULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Linear attenuation coefficient, pair production",
+    "value": 0,
+    "unit": "1/mm",
+    "kind": "CALCULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Expected interaction probability, pencil beam through 10 mm",
+    "value": 0.3427556473,
+    "unit": "",
+    "kind": "CALCULATED",
+    "note": "1 \u2212 exp(\u2212L/\u03bb). Simulation differs by -0.2\u03c3",
+    "err": null
+   }
+  ],
+  "s2": [
+   {
+    "label": "Configured light yield",
+    "value": 50000,
+    "unit": "photons/MeV",
+    "kind": "INPUT (literature)",
+    "note": "Material property supplied by the user",
+    "err": null
+   },
+   {
+    "label": "Scintillation yield fluctuation scale",
+    "value": 1,
+    "unit": "",
+    "kind": "INPUT",
+    "note": "1 = Poisson",
+    "err": null
+   },
+   {
+    "label": "Emission peak wavelength",
+    "value": 540,
+    "unit": "nm",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Emission-spectrum FWHM",
+    "value": 20,
+    "unit": "nm",
+    "kind": "INPUT",
+    "note": "spectral width of the emission band \u2014 NOT the gamma photopeak FWHM",
+    "err": null
+   },
+   {
+    "label": "Spectrum model used",
+    "value": "gaussian",
+    "unit": "",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Rise time",
+    "value": 0,
+    "unit": "ns",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Decay component 1",
+    "value": "1 ns, fraction 1",
+    "unit": "",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Generated scintillation photons, total",
+    "value": 75276492,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Mean generated photons per event (all events)",
+    "value": 7527.6492,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": 130.10421915740545
+   },
+   {
+    "label": "Mean generated photons per depositing event",
+    "value": 22735.27393536696,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Generated photons per MeV actually deposited",
+    "value": 53925.92730876334,
+    "unit": "photons/MeV",
+    "kind": "DERIVED",
+    "note": "ratio to configured yield = 1.0785. Configured yield (input) and generated photons per event (output) are different quantities.",
+    "err": null
+   },
+   {
+    "label": "Full-energy events: mean generated photons",
+    "value": 35703.613333333335,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Full-energy events: variance / mean of generated photons",
+    "value": 1.2182955131947137,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "expected \u2248 resolution_scale\u00b2 = 1 (Poisson/Gaussian yield statistics; small extra variance from E_dep spread within tolerance)",
+    "err": null
+   }
+  ],
+  "s3": [
+   {
+    "label": "Generated scintillation photons",
+    "value": 75276492,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Photons transported to at least one surface",
+    "value": 67651883,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "0.8987 of all optical tracks",
+    "err": null
+   },
+   {
+    "label": "Bulk-absorbed photons",
+    "value": 47655410,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "fraction 0.6331",
+    "err": null
+   },
+   {
+    "label": "Surface-absorbed photons",
+    "value": 16513188,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "fraction 0.2194 (reflector loss = 1 \u2212 reflectivity)",
+    "err": null
+   },
+   {
+    "label": "Escaped photons",
+    "value": 114733,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "fraction 0.0015",
+    "err": null
+   },
+   {
+    "label": "Photons reaching (entering) the sensor",
+    "value": 10993161,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "fraction 0.1460",
+    "err": null
+   },
+   {
+    "label": "Unclassified terminal fates",
+    "value": 0,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "must be 0; non-zero indicates a configuration or physics problem",
+    "err": null
+   },
+   {
+    "label": "Sum of terminal classes \u2212 optical tracks",
+    "value": 0,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "bookkeeping check; must be 0 (each photon has exactly one fate)",
+    "err": null
+   },
+   {
+    "label": "Optical collection efficiency (photons reaching sensor / generated)",
+    "value": 0.14603710544853765,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "before photodetection efficiency; excludes Fresnel-reflected photons that did not enter the sensor window",
+    "err": 4.070253162772532e-05
+   },
+   {
+    "label": "Rayleigh scatters",
+    "value": 0,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Mie scatters",
+    "value": 0,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Boundary reflections (all types)",
+    "value": 328834114,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Per-event collection efficiency, full-energy events: mean",
+    "value": 0.14564043661874518,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Per-event collection efficiency, full-energy events: relative std",
+    "value": 0.11505843110600908,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "position-dependent light collection \u2014 one source of energy-resolution broadening",
+    "err": null
+   }
+  ],
+  "s4": [
+   {
+    "label": "Sensor type",
+    "value": "SiPM",
+    "unit": "",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Configured PDE",
+    "value": 0.4,
+    "unit": "",
+    "kind": "INPUT (estimated)",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Photons entering the sensor window",
+    "value": 10993161,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Photons detected (photoelectrons)",
+    "value": 4396841,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Detection efficiency (detected / entering)",
+    "value": 0.39996148514517343,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "should reproduce the PDE averaged over the arriving spectrum",
+    "err": 0.0001477533565613231
+   },
+   {
+    "label": "Mean photoelectrons per event (all events)",
+    "value": 439.6841,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 7.644006714713459
+   },
+   {
+    "label": "Mean photoelectrons per depositing event",
+    "value": 1327.949562065841,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Mean photoelectrons, full-energy events (truth-tagged)",
+    "value": 2080.3354385964913,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 6.369345788221457
+   },
+   {
+    "label": "Photoelectron yield at E_\u03b3 (full-energy events)",
+    "value": 3.142500662532464,
+    "unit": "PE/keV",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "SiPM microcell saturation modelled",
+    "value": "yes",
+    "unit": "",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Microcell count",
+    "value": 14400,
+    "unit": "",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Recovery time",
+    "value": 20,
+    "unit": "ns",
+    "kind": "INPUT",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Photoelectrons lost to saturation/dead cells",
+    "value": 257860,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "5.865% of detected photons",
+    "err": null
+   },
+   {
+    "label": "Microcells fired (SiPM signal)",
+    "value": 4138981,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Mean avalanche charge per event",
+    "value": 413898100.0,
+    "unit": "electrons",
+    "kind": "DERIVED",
+    "note": "fired cells \u00d7 configured gain (no gain fluctuation modelled)",
+    "err": null
+   },
+   {
+    "label": "Mean time of first detected photon",
+    "value": 0.059493368636158256,
+    "unit": "ns",
+    "kind": "SIMULATED",
+    "note": "relative to first energy deposit; no single-photon timing jitter modelled",
+    "err": null
+   },
+   {
+    "label": "Median time of first detected photon",
+    "value": 0.0575396853,
+    "unit": "ns",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   }
+  ],
+  "s5": [
+   {
+    "label": "Peak determination method",
+    "value": "Gaussian + linear background fit to the full spectrum",
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Photopeak position (signal)",
+    "value": 1886.5231432028127,
+    "unit": "fired microcells",
+    "kind": "DERIVED",
+    "note": "Gaussian + linear-background fit to the signal spectrum",
+    "err": 8.369324378186004
+   },
+   {
+    "label": "Energy calibration (single-point at E_\u03b3)",
+    "value": 0.35091008683630603,
+    "unit": "keV per cell",
+    "kind": "DERIVED",
+    "note": "E_reco = signal \u00d7 this factor; the photopeak is placed at E_\u03b3 by construction, so only the width is informative",
+    "err": null
+   },
+   {
+    "label": "Photopeak position (reconstructed)",
+    "value": 662,
+    "unit": "keV",
+    "kind": "DERIVED",
+    "note": "equals the calibration energy by construction",
+    "err": null
+   },
+   {
+    "label": "Photopeak \u03c3 (signal)",
+    "value": 168.25837795257198,
+    "unit": "fired microcells",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 7.917006373677188
+   },
+   {
+    "label": "Gamma photopeak FWHM",
+    "value": 139.03696337065736,
+    "unit": "keV",
+    "kind": "DERIVED",
+    "note": "gamma-line width in the reconstructed energy spectrum (\u2260 emission-spectrum FWHM in nm)",
+    "err": 6.5420607198085134
+   },
+   {
+    "label": "Energy resolution = FWHM / E \u00d7 100",
+    "value": 21.002562442697485,
+    "unit": "%",
+    "kind": "DERIVED",
+    "note": "from the fit to the full spectrum",
+    "err": 0.9926095037034313
+   },
+   {
+    "label": "Energy resolution from truth-tagged full-energy events (cross-check)",
+    "value": 25.335723891140145,
+    "unit": "%",
+    "kind": "DERIVED",
+    "note": "2.355\u00b7std/mean of events selected with simulation truth; no background; peak skewness +0.09",
+    "err": null
+   },
+   {
+    "label": "Photoelectron-statistics-only expectation, 2.355/\u221aN_pe",
+    "value": 5.162868223929514,
+    "unit": "%",
+    "kind": "CALCULATED",
+    "note": "lower bound from Poisson photon counting alone (N_pe = mean photoelectrons in full-energy events); additional broadening shows up in the simulated value",
+    "err": null
+   },
+   {
+    "label": "Relative spread of optical collection (full-energy events)",
+    "value": 0.11505843110600908,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "position-dependent light collection (includes ~binomial noise of the photon count)",
+    "err": null
+   },
+   {
+    "label": "Quadrature estimate: 2.355\u00b7\u221a(1/N_pe + \u03c3_collection\u00b2)",
+    "value": 27.58170298605094,
+    "unit": "%",
+    "kind": "CALCULATED",
+    "note": "should be close to the truth-tagged resolution above if these two effects dominate",
+    "err": null
+   },
+   {
+    "label": "Full-energy events used for seeding",
+    "value": 1425,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "statistical quality: adequate (\u2265100)",
+    "err": null
+   },
+   {
+    "label": "Photopeak counts in \u03bc \u00b1 FWHM (raw)",
+    "value": 1480,
+    "unit": "",
+    "kind": "SIMULATED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Estimated background in window",
+    "value": 265.91130547304965,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   },
+   {
+    "label": "Photopeak efficiency, absolute (net counts / emitted gammas)",
+    "value": 0.12140886945269504,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": 0.0038470768123342685
+   },
+   {
+    "label": "Photopeak efficiency, intrinsic (net counts / gammas entering crystal)",
+    "value": 0.12140886945269504,
+    "unit": "",
+    "kind": "DERIVED",
+    "note": "",
+    "err": null
+   }
+  ]
+ },
+ "notes": {
+  "s1": [
+   "Interaction probability vs gamma energy: NOT shown \u2014 only one gamma energy has been simulated. Run ./run_all.sh --archive <tag> at other energies."
+  ],
+  "s2": [
+   "Light yield is a configured INPUT. The generated photon number per event is an OUTPUT of the stochastic model and equals yield \u00d7 deposited energy only on average."
+  ],
+  "s3": [
+   "photon_data.csv reconciliation skipped (photon_log = none, truncated = False)."
+  ],
+  "s5": [
+   "The energy resolution is dominated by position-dependent optical collection (spread 11.5%), not by photoelectron counting (\u22482.2%). Changing reflector, surface finish, sensor size/position or absorption length will change it strongly.",
+   "Photopeak efficiency uses the window \u03bc \u00b1 FWHM minus a fitted linear background; the truth full-energy fraction in Section 3 is an upper bound. They differ when the peak is broad or non-Gaussian (depth-dependent light collection produces a low-side tail).",
+   "Signal linearity: NOT evaluated \u2014 it needs simulations at several gamma energies (run ./run_all.sh --archive <tag> for each energy)."
+  ]
+ },
+ "plots": {
+  "s1": [
+   "results_CsPbBr3_7K/plots/s1_deposited_energy.png",
+   "results_CsPbBr3_7K/plots/s1_edep_spatial.png",
+   "results_CsPbBr3_7K/plots/s1_thickness_calc.png"
+  ],
+  "s2": [
+   "results_CsPbBr3_7K/plots/s2_emission_spectrum.png",
+   "results_CsPbBr3_7K/plots/s2_generated_vs_edep.png",
+   "results_CsPbBr3_7K/plots/s2_emission_time.png",
+   "results_CsPbBr3_7K/plots/s2_generated_count.png"
+  ],
+  "s3": [
+   "results_CsPbBr3_7K/plots/s3_photon_fates.png",
+   "results_CsPbBr3_7K/plots/s3_arrival_time.png",
+   "results_CsPbBr3_7K/plots/s3_face_losses.png"
+  ],
+  "s4": [
+   "results_CsPbBr3_7K/plots/s4_incident_vs_detected.png",
+   "results_CsPbBr3_7K/plots/s4_pe_histogram.png",
+   "results_CsPbBr3_7K/plots/s4_detection_time.png",
+   "results_CsPbBr3_7K/plots/s4_pe_vs_edep.png"
+  ],
+  "s5": [
+   "results_CsPbBr3_7K/plots/s5_reconstructed_spectrum.png"
+  ]
+ },
+ "photopeak": {
+  "ok": true,
+  "reason": "",
+  "n_truth": 1425,
+  "truth_mean": 1935.5361403508773,
+  "truth_std": 208.24610074443456,
+  "truth_resolution_pct": 25.335723891140145,
+  "truth_skew": 0.09196231671181448,
+  "method": "Gaussian + linear background fit to the full spectrum",
+  "mu": 1886.5231432028127,
+  "sigma": 168.25837795257198,
+  "fwhm": 396.21820114711005,
+  "mu_err": 8.369324378186004,
+  "sigma_err": 7.917006373677188,
+  "resolution_pct": 21.002562442697485,
+  "fit_window": [
+   946.1360000000001,
+   2843.864
+  ],
+  "fit_params": [
+   116.75141955723801,
+   1886.5231432028127,
+   168.25837795257198,
+   19.900150995232437,
+   -0.027165389506405742
+  ],
+  "resolution_err_pct": 0.9926095037034313,
+  "window": [
+   1490.3049420557027,
+   2282.7413443499227
+  ],
+  "raw_counts": 1480,
+  "bkg_counts": 265.91130547304965,
+  "net_counts": 1214.0886945269503,
+  "eff_abs": 0.12140886945269504,
+  "eff_abs_err": 0.0038470768123342685,
+  "eff_int": 0.12140886945269504,
+  "warning_low_stats": false
+ },
+ "linearity": null
+}

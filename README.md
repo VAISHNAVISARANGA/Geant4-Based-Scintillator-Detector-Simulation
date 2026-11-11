@@ -1,0 +1,136 @@
+# Geant4-Based Scintillator Detector Simulation
+# ScintillatorSimulator: Operating Guide
+
+This README explains how to build, configure, run, analyze, and visualize the simulator. For the project architecture and a detailed walkthrough of `Scintillator.cc`, see [PROJECT_REPORT.md](PROJECT_REPORT.md).
+
+## Prerequisites
+
+* Geant4 11.x, including its data libraries. Visualization is optional.
+* CMake 3.16 or newer, a C++17 compiler, and yaml-cpp.
+* Python 3.9 or newer with `numpy`, `pandas`, and `matplotlib`. `scipy` is optional and used for the photopeak fit in the analysis.
+
+Geant4 must be discoverable by CMake and its data environment variables must be set. If installed from source, source its setup script before building and running, for example:
+
+```bash
+source /path/to/geant4-install/bin/geant4.sh
+```
+
+## Configurations in this workspace
+
+Choose a YAML file and pass it explicitly. The current workspace includes:
+
+| Configuration | Material case | Output directory |
+|---|---|---|
+| `config_LaBr3_Ce.yaml` | LaBr₃:Ce, 293 K | `results_LaBr3_Ce_293K` |
+| `config_CsPbBr3.yaml` | CsPbBr₃, 7 K | `results_CsPbBr3_7K` |
+
+The executable and `run_all.sh` default to a file named `config.yaml`; use `--config` when using one of the material-specific files above.
+
+## Build, validate, run, and analyze
+
+The convenience script builds when needed, validates the selected configuration, runs Geant4, then analyzes the resulting directory:
+
+```bash
+./run_all.sh --config config_LaBr3_Ce.yaml
+```
+
+Use the other provided configuration with:
+
+```bash
+./run_all.sh --config config_CsPbBr3.yaml
+```
+
+Common options:
+
+```bash
+./run_all.sh --config config_LaBr3_Ce.yaml --validate-only
+./run_all.sh --config config_LaBr3_Ce.yaml --events 500 --seed 7
+./run_all.sh --config config_LaBr3_Ce.yaml --mode screening
+./run_all.sh --config config_LaBr3_Ce.yaml --outdir trial_run
+./run_all.sh --help
+```
+
+`--mode` accepts `auto`, `screening`, or `full`. In `auto`, the program runs the full detector simulation when all required stage inputs are present; otherwise, it runs gamma screening. `screening` explicitly skips scintillation, optical transport, and photodetection. `full` requires their inputs to be complete.
+
+Equivalent manual steps:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+./build/Scintillator config_LaBr3_Ce.yaml --validate
+./build/Scintillator config_LaBr3_Ce.yaml
+python3 analyze.py --results results_LaBr3_Ce_293K
+```
+
+The simulator also accepts `--events N`, `--seed N`, `--mode auto|screening|full`, `--outdir DIR`, `--vis`, and `--vis-macro FILE`. Command-line overrides are recorded in `summary.json`.
+
+## Editing a configuration
+
+Copy a provided YAML configuration and edit the copy. The main sections are:
+
+| YAML section | Settings |
+|---|---|
+| `simulation` | mode, Geant4 physics list, production cut, event count, random seed |
+| `output` | results directory, photon logging mode, maximum photon rows |
+| `material` | material name, element symbols and stoichiometric counts, density, temperature, provenance |
+| `crystal` | shape and dimensions |
+| `surface`, `surrounding` | surface finish, reflector, surrounding material and optical properties |
+| `source` | gamma energy, source type, position, direction, and cone angle where applicable |
+| `scintillation` | light yield, emission spectrum, rise/decay times |
+| `optical` | refractive index, absorption length, optional Rayleigh/Mie scattering and wavelength shifting |
+| `sensor` | SiPM/PMT type, placement/area, window and coupling, PDE and sensor model parameters |
+
+Physical values use a mapping with `value`, `unit`, `status`, and `source`; for example:
+
+```yaml
+light_yield:
+  value: 38000
+  unit: photons/MeV
+  status: literature
+  source: "Reference or measurement record"
+```
+
+Use `status: unknown` and a null value when a property is unavailable. The program validates units, ranges, and dependencies, and prints which stages cannot run. Keep the `source` and `conditions` fields updated so the run summary documents where the inputs came from. Supported units and full field details are documented in `PROJECT_REPORT.md` and in the configuration examples.
+
+## Analysis and output files
+
+`run_all.sh` runs analysis automatically unless called with `--no-analysis`. To analyze an existing run without rerunning Geant4:
+
+```bash
+python3 analyze.py --results results_LaBr3_Ce_293K
+```
+
+Each output directory contains:
+
+* `events.csv`: event-level energy, interaction, optical, and detector data.
+* `summary.json`: run settings, original configuration, stage status, inputs/provenance, and aggregate results.
+* `photon_data.csv`: detailed per-photon records, controlled by `output.photon_log` (`none`, `sensor`, or `all`). `none` writes only the header; `all` can produce a large file.
+* `plots/`, `analysis_metrics.json`, and `report.html`: analysis figures, metrics, and the HTML report, generated by `analyze.py`.
+
+To reduce output size, leave `output.photon_log: none` unless detailed individual photon paths are needed.
+
+## Optional visualization
+
+Visualization requires a Geant4 build with UI and visualization support and a working display/graphics driver. Run:
+
+```bash
+./build/Scintillator config_LaBr3_Ce.yaml --vis
+```
+
+The program loads the configured visualization macro (normally `vis.mac`). After the run, use the Geant4 prompt to change trajectory views:
+
+```text
+/control/execute stage_all.mac
+/control/execute stage_gamma.mac
+/control/execute stage_light.mac
+```
+
+To use another macro, pass `--vis-macro FILE`. Headless/file-based visualization depends on the Geant4 driver configured on the machine, for example `/vis/open VRML2FILE`.
+
+## Troubleshooting
+
+* **Configuration file cannot be opened:** check the path and pass the file with `--config` (the checked-in files are material-specific).
+* **Missing Geant4 data warning:** source the Geant4 setup script so the `G4*DATA` environment variables are available.
+* **A simulation stage is unavailable:** read the stage-readiness messages; provide the listed properties or choose `--mode screening`.
+* **Visualization scene or EGL/MESA warnings:** visualization depends on the local Geant4 graphics driver and display. The simulation and CSV/JSON outputs can still be used without visualization.
+
